@@ -4,3 +4,5 @@ streamlit
 fastapi
 uvicorn
 pydantic
+pytest
+httpx
