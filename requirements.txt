@@ -1,0 +1,6 @@
+transformers
+torch
+streamlit
+fastapi
+uvicorn
+pydantic
