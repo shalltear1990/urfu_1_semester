@@ -28,7 +28,15 @@ def get_word_count(text_str: str) -> int:
     перегружен сложными символьными небуквенными конструкциями или будет \
     иметь большое количество синтаксических ошибок (например, пропусков \
     пробелов между словами).
-    """
+
+    Исключения:
+    ----------
+    Данная функция выбрасывает TypeError исключение, если тип входного \
+    параметра отличается от строкового (str)."""
+
+    if type(text_str) is not str:
+        raise TypeError("Неверный тип входных параметров в функции \
+                        get_word_count()!")
 
     # Регулярное выражение ниже делает две вещи:
     # - удаляет все символы '-', '_', '@' и '.'
@@ -53,7 +61,20 @@ def load_model(name_of_model: str):
     ---------------------
     model, tokenizer
         кортеж из двух объектов (модель, токенайзер)
-    """
+
+    Исключения:
+    ----------
+    Данная функция выбрасывает TypeError исключение, если тип входного \
+    параметра отличается от строкового (str).
+    Так же, данная функция выбрасывает предупреждение, если модель, \
+    поданная на вход, отличается от \"IlyaGusev/rut5_base_sum_gazeta\"."""
+
+    if type(name_of_model) is not str:
+        raise TypeError("Неверный тип входных параметров в функции \
+                        load_model()!")
+    elif name_of_model != "IlyaGusev/rut5_base_sum_gazeta":
+        raise Warning("В функцию load_model() подана модель, отличная от \
+                      \"IlyaGusev/rut5_base_sum_gazeta\"!")
 
     tokenizer = AutoTokenizer.from_pretrained(name_of_model)
     model = T5ForConditionalGeneration.from_pretrained(name_of_model)
@@ -82,6 +103,9 @@ def get_sum(model, article_text: str):
     ---------------------
     summary
         краткая аннотация текста, сгенерированная моделью"""
+
+    # К данной функции применяется политика минимального вмешательства,
+    # поэтому проверки типов входных данных не будет.
 
     input_ids = model[1](
         [article_text],
